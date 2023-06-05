@@ -1,0 +1,50 @@
+#include <stdio.h>
+
+int main() {
+    int numCourses;
+    float totalPoints = 0.0;
+    float totalCredits = 0.0;
+
+    printf("Enter the number of courses: ");
+    scanf("%d", &numCourses);
+
+    for (int i = 1; i <= numCourses; i++) {
+        char grade;
+        float credits;
+
+        printf("Enter the letter grade for course %d (A/B/C/D/F): ", i);
+        scanf(" %c", &grade);
+
+        printf("Enter the number of credits for course %d: ", i);
+        scanf("%f", &credits);
+
+        switch (grade) {
+            case 'A':
+                totalPoints += 4.0 * credits;
+                break;
+            case 'B':
+                totalPoints += 3.0 * credits;
+                break;
+            case 'C':
+                totalPoints += 2.0 * credits;
+                break;
+            case 'D':
+                totalPoints += 1.0 * credits;
+                break;
+            case 'F':
+                totalPoints += 0.0 * credits;
+                break;
+            default:
+                printf("Invalid grade entered!\n");
+                i--;  // Decrement i to repeat the current iteration
+                continue;
+        }
+
+        totalCredits += credits;
+    }
+
+    float gradeAverage = totalPoints / totalCredits;
+    printf("Grade Average: %.2f\n", gradeAverage);
+
+    return 0;
+}

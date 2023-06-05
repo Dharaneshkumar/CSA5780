@@ -1,0 +1,71 @@
+#include <stdio.h>
+#include <string.h>
+
+#define MAX_DEPARTMENTS 12
+#define MAX_NAME_LENGTH 50
+
+struct Employee {
+    char name[MAX_NAME_LENGTH];
+    char gender;
+    double wage;
+    int age;
+    int department;
+};
+
+int main() {
+    struct Employee employees[MAX_DEPARTMENTS][100]; // Assuming a maximum of 100 employees per department
+    int departmentCounts[MAX_DEPARTMENTS] = {0}; // Number of employees in each department
+    int womenCounts[MAX_DEPARTMENTS] = {0}; // Number of women in each department
+    int menCounts[MAX_DEPARTMENTS] = {0}; // Number of men in each department
+    double womenWageTotal[MAX_DEPARTMENTS] = {0}; // Total wages of women in each department
+    double menWageTotal[MAX_DEPARTMENTS] = {0}; // Total wages of men in each department
+    int womenAgeTotal[MAX_DEPARTMENTS] = {0}; // Total age of women in each department
+    int menAgeTotal[MAX_DEPARTMENTS] = {0}; // Total age of men in each department
+
+    int numEmployees;
+
+    printf("Enter the total number of employees: ");
+    scanf("%d", &numEmployees);
+
+    // Prompt the user to enter the details of each employee
+    for (int i = 0; i < numEmployees; i++) {
+        struct Employee employee;
+        printf("\nEmployee %d:\n", i + 1);
+        printf("Name: ");
+        getchar(); // Clear input buffer
+        fgets(employee.name, MAX_NAME_LENGTH, stdin);
+        employee.name[strcspn(employee.name, "\n")] = '\0';
+        printf("Gender (M/F): ");
+        scanf("%c", &employee.gender);
+        printf("Wage: ");
+        scanf("%lf", &employee.wage);
+        printf("Age: ");
+        scanf("%d", &employee.age);
+        printf("Department (1-12): ");
+        scanf("%d", &employee.department);
+
+        // Update department counts
+        departmentCounts[employee.department - 1]++;
+
+        // Update gender counts and wage totals
+        if (employee.gender == 'F') {
+            womenCounts[employee.department - 1]++;
+            womenWageTotal[employee.department - 1] += employee.wage;
+            womenAgeTotal[employee.department - 1] += employee.age;
+        } else {
+            menCounts[employee.department - 1]++;
+            menWageTotal[employee.department - 1] += employee.wage;
+            menAgeTotal[employee.department - 1] += employee.age;
+        }
+
+        employees[employee.department - 1][departmentCounts[employee.department - 1] - 1] = employee;
+    }
+
+    // Print the wages of women compared to men
+    printf("\nWages of Women compared to Men:\n");
+    for (int department = 0; department < MAX_DEPARTMENTS; department++) {
+        double womenAverageWage = womenWageTotal[department] / womenCounts[department];
+        double menAverageWage = menWageTotal[department] / menCounts[department];
+        printf("Department %d:\n", department + 1);
+        printf("Average Wage of Women: %.2lf\n", womenAverageWage);
+        printf("Average Wage of

@@ -1,0 +1,62 @@
+#include <stdio.h>
+
+#define NUM_CLASS_LEVELS 5 // 4 undergraduate levels + 1 graduate level
+#define NUM_MAJORS 7
+#define TOTAL_STUDENTS 1200
+
+int main() {
+    int studentsByLevelAndMajor[NUM_CLASS_LEVELS][NUM_MAJORS] = {0};
+    int studentsByLevel[NUM_CLASS_LEVELS] = {0};
+    int studentsByMajor[NUM_MAJORS] = {0};
+
+    // Prompt the user to enter the details of each student
+    for (int i = 0; i < TOTAL_STUDENTS; i++) {
+        int classLevel, major;
+
+        printf("\nStudent %d:\n", i + 1);
+        printf("Class Level (1-4 for undergraduate, 5 for graduate): ");
+        scanf("%d", &classLevel);
+
+        if (classLevel < 1 || classLevel > NUM_CLASS_LEVELS) {
+            printf("Invalid class level. Please try again.\n");
+            i--;
+            continue;
+        }
+
+        printf("Major (1-7, 0 if not declared): ");
+        scanf("%d", &major);
+
+        if (major < 0 || major > NUM_MAJORS) {
+            printf("Invalid major. Please try again.\n");
+            i--;
+            continue;
+        }
+
+        studentsByLevelAndMajor[classLevel - 1][major]++;
+        studentsByLevel[classLevel - 1]++;
+        studentsByMajor[major]++;
+    }
+
+    // Print the number of students in each class level
+    printf("\nNumber of Students by Class Level:\n");
+    for (int level = 0; level < NUM_CLASS_LEVELS; level++) {
+        printf("Level %d: %d students\n", level + 1, studentsByLevel[level]);
+    }
+
+    // Print the number of students in each major
+    printf("\nNumber of Students by Major:\n");
+    for (int major = 0; major < NUM_MAJORS; major++) {
+        printf("Major %d: %d students\n", major, studentsByMajor[major]);
+    }
+
+    // Print the number of students in each major for each class level
+    printf("\nNumber of Students by Class Level and Major:\n");
+    for (int level = 0; level < NUM_CLASS_LEVELS; level++) {
+        printf("Level %d:\n", level + 1);
+        for (int major = 0; major < NUM_MAJORS; major++) {
+            printf("  Major %d: %d students\n", major, studentsByLevelAndMajor[level][major]);
+        }
+    }
+
+    return 0;
+}

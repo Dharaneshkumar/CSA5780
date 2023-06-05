@@ -1,0 +1,106 @@
+#include <stdio.h>
+
+#define MAX_ALUMNI 95
+
+struct Alumni {
+    int age;
+    char gender;
+    char maritalStatus;
+    char major[50];
+    double salary;
+};
+
+int main() {
+    struct Alumni alumni[MAX_ALUMNI];
+    int numAlumni;
+
+    printf("Enter the number of returned questionnaires: ");
+    scanf("%d", &numAlumni);
+
+    // Prompt the user to enter the details of each alumni
+    for (int i = 0; i < numAlumni; i++) {
+        struct Alumni alumnus;
+        printf("\nAlumni %d:\n", i + 1);
+        printf("Age: ");
+        scanf("%d", &alumnus.age);
+        printf("Gender (M/F): ");
+        scanf(" %c", &alumnus.gender);
+        printf("Marital Status (S/M): ");
+        scanf(" %c", &alumnus.maritalStatus);
+        printf("College Major: ");
+        getchar(); // Clear input buffer
+        fgets(alumnus.major, sizeof(alumnus.major), stdin);
+        alumnus.major[strcspn(alumnus.major, "\n")] = '\0';
+        printf("Salary: ");
+        scanf("%lf", &alumnus.salary);
+
+        alumni[i] = alumnus;
+    }
+
+    // Calculate average salary given two sets of items
+    int option;
+    printf("\nChoose the sets of items for cross-tabulation:\n");
+    printf("1. Age and Gender\n");
+    printf("2. Age and Marital Status\n");
+    printf("3. Gender and Marital Status\n");
+    printf("4. Age and College Major\n");
+    printf("5. Gender and College Major\n");
+    printf("Enter your option: ");
+    scanf("%d", &option);
+
+    double totalSalary = 0;
+    int count = 0;
+
+    switch (option) {
+        case 1:
+            for (int i = 0; i < numAlumni; i++) {
+                totalSalary += alumni[i].salary;
+                count++;
+            }
+            break;
+        case 2:
+            for (int i = 0; i < numAlumni; i++) {
+                if (alumni[i].maritalStatus == 'S') {
+                    totalSalary += alumni[i].salary;
+                    count++;
+                }
+            }
+            break;
+        case 3:
+            for (int i = 0; i < numAlumni; i++) {
+                if (alumni[i].gender == 'M' && alumni[i].maritalStatus == 'M') {
+                    totalSalary += alumni[i].salary;
+                    count++;
+                }
+            }
+            break;
+        case 4:
+            for (int i = 0; i < numAlumni; i++) {
+                if (strcmp(alumni[i].major, "Computer Science") == 0) {
+                    totalSalary += alumni[i].salary;
+                    count++;
+                }
+            }
+            break;
+        case 5:
+            for (int i = 0; i < numAlumni; i++) {
+                if (alumni[i].gender == 'F' && strcmp(alumni[i].major, "Engineering") == 0) {
+                    totalSalary += alumni[i].salary;
+                    count++;
+                }
+            }
+            break;
+        default:
+            printf("Invalid option.\n");
+            return 1;
+    }
+
+    if (count > 0) {
+        double averageSalary = totalSalary / count;
+        printf("\nAverage Salary: %.2lf\n", averageSalary);
+    } else {
+        printf("No data found for the selected option.\n");
+    }
+
+    return 0;
+}

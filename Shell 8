@@ -1,0 +1,16 @@
+#!/bin/bash
+
+echo "Enter the value of N: "
+read N
+
+sum=0
+sign=1
+
+for ((i=1; i<=N; i++))
+do
+    term=$((i * sign))
+    sum=$((sum + term))
+    sign=$((sign * -1))
+done
+
+echo "Sum of the series: $sum"

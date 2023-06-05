@@ -1,0 +1,10 @@
+#!/bin/bash
+
+echo "Enter the value of n: "
+read n
+
+echo "Number series: "
+for ((i=1; i<=n; i++))
+do
+    echo "$i"
+done

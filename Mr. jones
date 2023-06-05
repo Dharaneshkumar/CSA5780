@@ -1,0 +1,73 @@
+#include <stdio.h>
+
+#define MAX_STUDENTS 35
+#define NUM_QUESTIONS 20
+
+int main() {
+    int correctAnswers[NUM_QUESTIONS];
+    int studentIDs[MAX_STUDENTS];
+    int numCorrect[MAX_STUDENTS];
+    char grades[MAX_STUDENTS];
+
+    // Prompt the user to enter the correct answers for each question
+    printf("Enter the correct answers for each question (0 for False, 1 for True):\n");
+    for (int i = 0; i < NUM_QUESTIONS; i++) {
+        printf("Question %d: ", i + 1);
+        scanf("%d", &correctAnswers[i]);
+    }
+
+    // Prompt the user to enter the number of students
+    int numStudents;
+    printf("Enter the number of students: ");
+    scanf("%d", &numStudents);
+
+    // Calculate grades for each student
+    int bestScore = 0;
+    for (int i = 0; i < numStudents; i++) {
+        // Prompt the user to enter the student's ID
+        printf("Enter student ID for student %d: ", i + 1);
+        scanf("%d", &studentIDs[i]);
+
+        // Prompt the user to enter the student's answers for each question
+        printf("Enter the answers for student %d (0 for False, 1 for True):\n", studentIDs[i]);
+        numCorrect[i] = 0;
+        for (int j = 0; j < NUM_QUESTIONS; j++) {
+            int answer;
+            printf("Question %d: ", j + 1);
+            scanf("%d", &answer);
+
+            // Check if the answer is correct
+            if (answer == correctAnswers[j]) {
+                numCorrect[i]++;
+            }
+        }
+
+        // Update the best score
+        if (numCorrect[i] > bestScore) {
+            bestScore = numCorrect[i];
+        }
+
+        // Calculate the grade for the current student
+        if (numCorrect[i] >= bestScore - 2) {
+            grades[i] = 'A';
+        } else if (numCorrect[i] >= bestScore - 4) {
+            grades[i] = 'B';
+        } else if (numCorrect[i] >= bestScore - 6) {
+            grades[i] = 'C';
+        } else if (numCorrect[i] >= bestScore - 8) {
+            grades[i] = 'D';
+        } else {
+            grades[i] = 'F';
+        }
+    }
+
+    // Print the student information and the highest score
+    printf("\nStudent Information:\n");
+    printf("ID\tCorrect Answers\tGrade\n");
+    for (int i = 0; i < numStudents; i++) {
+        printf("%d\t%d\t\t%c\n", studentIDs[i], numCorrect[i], grades[i]);
+    }
+    printf("\nHighest Score: %d\n", bestScore);
+
+    return 0;
+}

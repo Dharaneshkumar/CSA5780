@@ -1,0 +1,51 @@
+#include <stdio.h>
+#include <string.h>
+
+#define NUM_STUDENTS 10
+#define MAX_NAME_LENGTH 50
+#define NUM_TESTS 4
+
+int main() {
+    char studentNames[NUM_STUDENTS][MAX_NAME_LENGTH];
+    int testScores[NUM_STUDENTS][NUM_TESTS];
+
+    // Prompt the user to enter the student names and test scores
+    for (int i = 0; i < NUM_STUDENTS; i++) {
+        printf("Enter the name of student %d: ", i + 1);
+        fgets(studentNames[i], MAX_NAME_LENGTH, stdin);
+        studentNames[i][strcspn(studentNames[i], "\n")] = '\0';
+
+        for (int j = 0; j < NUM_TESTS; j++) {
+            printf("Enter the score for test %d: ", j + 1);
+            scanf("%d", &testScores[i][j]);
+        }
+        getchar();  // Consume the newline character left in the input buffer
+    }
+
+    // Prompt the user to enter the student's name
+    char searchName[MAX_NAME_LENGTH];
+    printf("\nEnter the student's name: ");
+    fgets(searchName, MAX_NAME_LENGTH, stdin);
+    searchName[strcspn(searchName, "\n")] = '\0';
+
+    // Search for the student's name in the array
+    int found = 0;
+    for (int i = 0; i < NUM_STUDENTS; i++) {
+        if (strcmp(searchName, studentNames[i]) == 0) {
+            // Print the student's name and test scores
+            printf("\nStudent: %s\n", studentNames[i]);
+            printf("Test Scores:\n");
+            for (int j = 0; j < NUM_TESTS; j++) {
+                printf("Test %d: %d\n", j + 1, testScores[i][j]);
+            }
+            found = 1;
+            break;
+        }
+    }
+
+    if (!found) {
+        printf("\nStudent not found.\n");
+    }
+
+    return 0;
+}

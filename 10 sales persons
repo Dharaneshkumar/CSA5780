@@ -1,0 +1,41 @@
+#include <stdio.h>
+
+#define NUM_SALESPERSON 10
+#define NUM_DAYS 7
+
+int main() {
+    double sales[NUM_SALESPERSON][NUM_DAYS];
+    double totalSalesPerDay[NUM_DAYS] = {0};
+    double totalSalesForWeek = 0;
+
+    // Prompt the user to enter the sales amount for each salesperson for each day
+    for (int i = 0; i < NUM_SALESPERSON; i++) {
+        printf("Enter the sales amount for salesperson %d:\n", i + 1);
+        for (int j = 0; j < NUM_DAYS; j++) {
+            printf("Day %d: ", j + 1);
+            scanf("%lf", &sales[i][j]);
+            totalSalesPerDay[j] += sales[i][j];
+            totalSalesForWeek += sales[i][j];
+        }
+    }
+
+    // Calculate and print the average sales amount for each salesperson for the week
+    printf("\nAverage Sales Amount per Salesperson for the Week:\n");
+    for (int i = 0; i < NUM_SALESPERSON; i++) {
+        double sumSales = 0;
+        for (int j = 0; j < NUM_DAYS; j++) {
+            sumSales += sales[i][j];
+        }
+        double averageSales = sumSales / NUM_DAYS;
+        printf("Salesperson %d: $%.2lf\n", i + 1, averageSales);
+    }
+
+    // Print the total sales amount for each day and for the week
+    printf("\nTotal Sales Amount:\n");
+    for (int j = 0; j < NUM_DAYS; j++) {
+        printf("Day %d: $%.2lf\n", j + 1, totalSalesPerDay[j]);
+    }
+    printf("Total Sales for the Week: $%.2lf\n", totalSalesForWeek);
+
+    return 0;
+}

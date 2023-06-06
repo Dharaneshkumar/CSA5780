@@ -1,0 +1,14 @@
+#!/bin/bash
+
+echo "Enter an integer number: "
+read number
+
+# Convert the number to a string
+number_str="$number"
+
+echo "Digits of the number: "
+for (( i=0; i<${#number_str}; i++ ))
+do
+    digit="${number_str:i:1}"
+    echo "$digit"
+done

@@ -1,0 +1,21 @@
+#!/bin/bash
+
+echo "Enter the value of x: "
+read x
+
+echo "Enter the number of terms: "
+read num_terms
+
+result=0
+sign=1
+term=$x
+
+for (( i=1; i<=num_terms; i++ ))
+do
+    result=$(bc -l <<< "$result + ($sign * $term)")
+    sign=$((sign * -1))
+    term=$(bc -l <<< "$term * ($x * $x)")
+    term=$(bc -l <<< "$term / (($i * 2) * (($i * 2) + 1))")
+done
+
+echo "sin($x) = $result"

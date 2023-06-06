@@ -1,0 +1,18 @@
+#!/bin/bash
+
+echo "Enter the count of numbers: "
+read count
+
+largest=-999999999  # Initialize largest to a very small value
+
+for ((i=1; i<=count; i++))
+do
+    echo "Enter number $i: "
+    read number
+    
+    if ((number > largest)); then
+        largest=$number
+    fi
+done
+
+echo "The largest number is $largest"

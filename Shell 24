@@ -1,0 +1,26 @@
+#!/bin/bash
+
+echo "Enter the value of a: "
+read a
+
+echo "Enter the value of b: "
+read b
+
+echo "Enter the value of c: "
+read c
+
+echo "Before swapping:"
+echo "a: $a"
+echo "b: $b"
+echo "c: $c"
+
+# Swapping using temporary variables
+temp=$a
+a=$b
+b=$c
+c=$temp
+
+echo "After swapping:"
+echo "a: $a"
+echo "b: $b"
+echo "c: $c"

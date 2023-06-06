@@ -1,0 +1,20 @@
+#!/bin/bash
+
+echo "Enter an integer number: "
+read number
+
+# Convert the number to a string
+number_str="$number"
+
+# Reverse the string
+reversed_str=""
+for (( i=${#number_str}-1; i>=0; i-- ))
+do
+    digit="${number_str:i:1}"
+    reversed_str="$reversed_str$digit"
+done
+
+# Convert the reversed string back to an integer
+reversed_number=$((10#$reversed_str))
+
+echo "Reversed number: $reversed_number"

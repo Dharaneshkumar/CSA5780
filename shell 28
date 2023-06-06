@@ -1,0 +1,22 @@
+#!/bin/bash
+
+echo "Enter the value of x: "
+read x
+
+echo "Enter the number of terms: "
+read num_terms
+
+result=1
+sign=-1
+term=1
+
+for (( i=1; i<=num_terms; i++ ))
+do
+    term=$(bc -l <<< "$term * ($x * $x)")
+    term=$(bc -l <<< "$term / (($i * 2) * (($i * 2) - 1))")
+    term=$(bc -l <<< "$term * $sign")
+    result=$(bc -l <<< "$result + $term")
+    sign=$((sign * -1))
+done
+
+echo "cos($x) = $result"
